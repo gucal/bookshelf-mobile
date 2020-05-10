@@ -5,15 +5,15 @@ import {Header} from 'react-native-elements'
 export default class HeaderComp extends Component {
   render() {
     return (
-      <View>
+      <View >
         <Header
             leftComponent={{ icon: 'menu', color: '#fff' }}
             centerComponent={{ text: 'BookShelf', style: { color: '#fff' } }}
             rightComponent={{ icon: 'home', color: '#fff' }}
+            backgroundColor="#1b2139"
+
         />
       </View>
     );
   }
 }
-
-
