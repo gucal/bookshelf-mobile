@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, TouchableHighlight, TouchableOpacity} from 'react-native';
 import {Image, Button, Icon} from 'react-native-elements'
+import { Actions } from 'react-native-router-flux';
 
 export default class home extends Component {
   render() {
@@ -8,13 +9,17 @@ export default class home extends Component {
       <ScrollView>
       <View style={styles.container}>
        
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.idefix.com/cache/500x400-0/originals/0001870867001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName}>Günlerin Sonu</Text>
-        </View>
+          <TouchableOpacity onPress={() => Actions.detail()} style={styles.book}>
+            <>
+              <Image
+                source={{ uri: "https://i.idefix.com/cache/500x400-0/originals/0001870867001-1.jpg" }}
+                style={styles.bookImg}
+              />
+              <Text style={styles.bookName}>Günlerin Sonu</Text>
+            </>
+          
+          </TouchableOpacity>
+        
         <View style={styles.book}>
           <Image
             source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001870924001-1.jpg" }}
@@ -104,6 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection:"row",
     flexWrap: "wrap",
+    backgroundColor: "#222b45"
   },
   book: {
     marginRight:15,
@@ -115,6 +121,7 @@ const styles = StyleSheet.create({
   },
   bookName:{
     textAlign:"center",
-    width:120
+    width:120,
+    color: '#fff'
   }
 });
