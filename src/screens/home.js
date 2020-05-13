@@ -12,7 +12,7 @@ export default class home extends Component {
     }
   }
   componentDidMount(){
-    axios.get('https://secure-forest-87056.herokuapp.com/api/books', { 'headers': { 'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZXJ0aXMiLCJpYXQiOjE1ODkzODIyMTgsImV4cCI6MTU4OTM4NTgxOH0.rv5-Lo4M5v4BFrd7PuVWMv9qehVaPz9clPkN2jsNZ8Y" } })
+    axios.get('https://secure-forest-87056.herokuapp.com/api/books', { 'headers': { 'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZXJ0aXMiLCJpYXQiOjE1ODkzODg1OTYsImV4cCI6MTU4OTM5MjE5Nn0.8iyITvkRK9E4iBUgXg73gN8ij0ALd8724xYbOOq9zXE" } })
     .then( (response) =>  {
       this.setState({books: response.data})
     }).catch(function (error) {

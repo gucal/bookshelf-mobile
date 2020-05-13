@@ -1,60 +1,65 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, ScrollView} from 'react-native';
+import { StyleSheet, View, ScrollView, Alert} from 'react-native';
 import {Image, Text } from 'react-native-elements'
+import axios from 'axios'
 export default class Detail extends Component {
     constructor(props) {
-		super(props);
+        super(props);
+        this.state={
+            detail:[]
+        }
     }
-  
+    componentDidMount(){
+        axios.get('https://secure-forest-87056.herokuapp.com/api/books/'+this.props.id, { 'headers': { 'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZXJ0aXMiLCJpYXQiOjE1ODkzODg1OTYsImV4cCI6MTU4OTM5MjE5Nn0.8iyITvkRK9E4iBUgXg73gN8ij0ALd8724xYbOOq9zXE" } })
+        .then( (response) =>  {
+          this.setState({detail: response.data})
+          console.log(response.data)
+        }).catch(function (error) {
+            console.log(error)
+    
+       });
+    }
     render(){
         return(
             <View style={styles.container}>
-                <View style={styles.summary}>
+                {console.log(Object.keys(this.state.detail).length)}
+                {console.log(this.state.detail)}
+                {this.state.detail && this.state.detail.map((detail) => {
+                    return (
+                        <>
+                             <View style={styles.summary}>
                     <View>
                         <Image
-                            source={{ uri: "https://i.idefix.com/cache/500x400-0/originals/0001870867001-1.jpg" }}
+                            source={{ uri: detail.imageLinks[0].smallThumbnail }}
                             style={styles.bookImg}
                         />
                     </View>
                     <View style={styles.text}>
                         <Text style={styles.textRow} > 
-                            <Text style={styles.title}> Kitap Adı: </Text> <Text> Günlerin Sonu</Text>
+                            <Text style={styles.title}> Kitap Adı: </Text> <Text> {detail.title}</Text>
                         </Text>
                         <Text style={styles.textRow} > 
-                            <Text style={styles.title}> Kitap Türü: </Text> <Text> Fantastik, Roman </Text>
+                            <Text style={styles.title}> Kitap Türü: </Text> <Text> {detail.categories.map((category) => {
+                                return category+", ";
+                            })} </Text>
                         </Text>
                         <Text style={styles.textRow}> 
-                            <Text style={styles.title}> Kitap Yazarı: </Text> <Text> Sylvia Browne, Lindsay Harrison</Text>
+                            <Text style={styles.title}> Kitap Yazarı: </Text> <Text>{detail.authors.map((author) => {
+                                return author+", ";
+                            })}</Text>
                         </Text>
                        
                     </View>
                 </View>
                 <View style={styles.detail}>
-                <Text style={styles.title}> Kitap Özeti: </Text> 
-                    <Text style={styles.detailText}>
-                    2020 civarında, zatürre benzeri ciddi bir hastalık tüm dünyaya yayılacak, akciğerlere ve bronşlara saldıracak ve bilinen tüm tedavilere direnç gösterecek. Hastalığın neredeyse kendisinden daha kafa karıştırıcı olan gerçek ise, geldiği gibi aniden gideceği, on yıl sonra tekrar atak yapacağı ve sonrasında tamamen ortadan kaybolacağıdır.”
-
-                    Hepimizin aklının bir köşesinde hep şu soru var: Dünyanın sonu ne zaman gelecek ve bu nasıl gerçekleşecek? Amerikalı ünlü medyum Sylvia Browne’un bu kitabı, size bu sorunun cevabına ulaşmada rehberlik edecek.
-
-                    Antik uygarlıkların dünyanın sonuyla ilgili kehanetleri
-
-                    İslamiyet, Hıristiyanlık, Yahudilik ve diğer dinlere göre kıyamet
-
-                    Kıyamet alametleri nelerdir?
-
-                    Hz. İsa tekrar dünyaya gelecek mi?
-
-                    Mehdi ve Deccal kim, şu an dünyadalar mı?
-
-                    Ünlü kâhinlerin dünyanın sonuyla ilgili kehanetleri
-
-                    Kıyamet tarikatları
-
-                    Sylvia Browne’un dünyanın sonuyla ilgili kehanetleri
-
-                    Dünyaya nereden ve nasıl geldik? Öte Taraf nasıl bir yer?
-                    </Text>
+                    <Text style={styles.title}> Kitap Özeti: </Text> 
+                    <Text style={styles.detailText}> {detail.description}</Text>
                 </View>
+                        </>
+                    )
+                })}
+                   
+                
             </View>
         )
     }
