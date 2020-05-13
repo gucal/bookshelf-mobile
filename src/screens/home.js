@@ -1,103 +1,45 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, TouchableHighlight, TouchableOpacity} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, TouchableHighlight, TouchableOpacity, Alert} from 'react-native';
 import {Image, Button, Icon} from 'react-native-elements'
 import { Actions } from 'react-native-router-flux';
+import axios from 'axios'
 
 export default class home extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      books:[]
+    }
+  }
+  componentDidMount(){
+    axios.get('https://secure-forest-87056.herokuapp.com/api/books', { 'headers': { 'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZXJ0aXMiLCJpYXQiOjE1ODkzODg1OTYsImV4cCI6MTU4OTM5MjE5Nn0.8iyITvkRK9E4iBUgXg73gN8ij0ALd8724xYbOOq9zXE" } })
+    .then( (response) =>  {
+      this.setState({books: response.data})
+    }).catch(function (error) {
+        console.log(error)
+
+   });
+  }
   render() {
     return (
       <ScrollView>
       <View style={styles.container}>
-       
-          <TouchableOpacity onPress={() => Actions.detail()} style={styles.book}>
+        {this.state.books.map((book) => {
+          return(
+            <TouchableOpacity key={book._id} onPress={() => Actions.detail({id:book._id})} style={styles.book}>
             <>
               <Image
-                source={{ uri: "https://i.idefix.com/cache/500x400-0/originals/0001870867001-1.jpg" }}
+                source={{ uri: book.imageLinks[0].smallThumbnail}}
                 style={styles.bookImg}
               />
-              <Text style={styles.bookName}>Günlerin Sonu</Text>
+              <Text style={styles.bookName}>{book.title}</Text>
             </>
           
           </TouchableOpacity>
-        
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001870924001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName}>Mekanik </Text>
+          )
+        })}
+         
         </View>
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001870942001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName}>Michael Jordan</Text>
-        </View>
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001870779001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName} >Konstantiniyye Oteli </Text>
-        </View>
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001870840001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName}>Bul Beni </Text>
-        </View>
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001869654001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName}>Akıllandım Artık Şimdi Daha Deliyim</Text>
-        </View>
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001869125001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName}>Kozmos: Yeni Dünyalar </Text>
-        </View>
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001870778001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName} >Akira 1.Cilt</Text>
-        </View>
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001846586001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName}>Nickel Çocukları </Text>
-        </View>
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001791778001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName}>Mutluluk </Text>
-        </View>
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001865675001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName}>İyi ki Yoksun </Text>
-        </View>
-        <View style={styles.book}>
-          <Image
-            source={{ uri: "https://i.dr.com.tr/cache/500x400-0/originals/0001864882001-1.jpg" }}
-            style={styles.bookImg}
-          />
-          <Text style={styles.bookName} >Fil Saati </Text>
-        </View>
-      </View>
       </ScrollView>
     );
   }
