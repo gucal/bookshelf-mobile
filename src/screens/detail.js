@@ -4,8 +4,6 @@ import {Image, Text } from 'react-native-elements'
 export default class Detail extends Component {
     constructor(props) {
 		super(props);
-
-
     }
   
     render(){
