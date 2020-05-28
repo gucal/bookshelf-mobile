@@ -64,7 +64,7 @@ class signIn extends Component {
                   leftIcon={<Icon name="user" size={20} color="black" />}
                   onChangeText={handleChange('username')}
                   value={values.username}
-                  placeholder="Kullanıcı Adı"
+                  placeholder="User Name"
                   returnKeyType={'next'}
                   onBlur={() => setFieldTouched('username')}
                   autoCorrect={false}
@@ -79,7 +79,7 @@ class signIn extends Component {
                   leftIcon={<Icon name="lock" size={20} color="black" />}
                   onChangeText={handleChange('password')}
                   value={values.password}
-                  placeholder="Şifre"
+                  placeholder="Password"
                   returnKeyType={'go'}
                   onBlur={() => setFieldTouched('password')}
                   autoCorrect={false}
@@ -91,7 +91,7 @@ class signIn extends Component {
                   }
                 />
                 <Button
-                  title="GİRİŞ"
+                  title="LOGIN"
                   buttonStyle={{marginHorizontal: 10}}
                   onPress={handleSubmit}
                 />
@@ -101,7 +101,7 @@ class signIn extends Component {
         </View>
         <View style={styles.singUpTextView}>
           <TouchableOpacity onPress={() => Actions.push('signUp')}>
-            <Text style={styles.signUpText}>Hesabınız yok mu?</Text>
+            <Text style={styles.signUpText}>Create Account</Text>
           </TouchableOpacity>
         </View>
       </View>

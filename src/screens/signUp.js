@@ -64,7 +64,7 @@ export default class signUp extends Component {
               returnKeyType={'next'}
               onSubmitEditing={() => this.usernameRef.focus()}
               onChangeText={handleChange('email')}
-              placeholder="E - posta"
+              placeholder="E - mail"
               value={values.email}
               autoCapitalize={'none'}
               onBlur={() => setFieldTouched('email')}
@@ -80,7 +80,7 @@ export default class signUp extends Component {
               leftIcon={<Icon name="user" size={20} color="black" />}
               onChangeText={handleChange('username')}
               value={values.username}
-              placeholder="Kullanıcı Adı"
+              placeholder="User Name"
               returnKeyType={'next'}
               onBlur={() => setFieldTouched('username')}
               autoCorrect={false}
@@ -107,7 +107,7 @@ export default class signUp extends Component {
               }
             />
             <Button
-              title="KAYDOL"
+              title="SAVE"
               buttonStyle={{marginHorizontal: 10}}
               onPress={handleSubmit}
             />
