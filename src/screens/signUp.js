@@ -33,6 +33,7 @@ export default class signUp extends Component {
 
       Actions.push('signIn');
     } catch (e) {
+      console.log(e)
       bag.setSubmitting(false);
       bag.setErrors(e);
     }

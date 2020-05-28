@@ -5,6 +5,7 @@ class AuthStore {
   @observable token = null;
 
   @action async saveToken(token) {
+    console.log(token);
     try {
       await AsyncStorage.setItem('token', token);
       const data = await AsyncStorage.getItem('token');
