@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, View, ScrollView, Alert} from 'react-native';
 import {Image, Text} from 'react-native-elements';
 import axios from 'axios';
+var ls = require('react-native-local-storage');
+
 export default class Detail extends Component {
   constructor(props) {
     super(props);
@@ -10,23 +12,22 @@ export default class Detail extends Component {
     };
   }
   componentDidMount() {
-    axios
-      .get(
-        'https://secure-forest-87056.herokuapp.com/api/books/' + this.props.id,
-        {
+    ls.get('user').then((data) => {
+        this.setState({"token": data.token});
+        axios.get('https://secure-forest-87056.herokuapp.com/api/books/' + this.props.id, {
           headers: {
             Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbmVtZSIsImlhdCI6MTU5MDU4MDMyNiwiZXhwIjoxNTkwNjY2NzI2fQ.M6UZh9MJf757GEsYRndz-yKoZIIVFKRT8PdPJT-3jyQ',
+              'Bearer '+  data.token,
           },
-        },
-      )
-      .then(response => {
-        this.setState({detail: response.data});
-        console.log(response.data);
-      })
-      .catch(function(error) {
-        console.log(error);
+        })
+        .then(response => {
+            this.setState({detail: response.data});
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
       });
+ 
   }
   render() {
     return (

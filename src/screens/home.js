@@ -9,20 +9,23 @@ import {
 import {Image, Button, Icon} from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import axios from 'axios';
+var ls = require('react-native-local-storage');
 
 export default class home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       books: [],
+      token:''
     };
   }
   componentDidMount() {
-    axios
-      .get('https://secure-forest-87056.herokuapp.com/api/books', {
+    ls.get('user').then((data) => {
+      this.setState({"token": data.token});
+      axios.get('https://secure-forest-87056.herokuapp.com/api/books', {
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbmVtZSIsImlhdCI6MTU5MDU4MDMyNiwiZXhwIjoxNTkwNjY2NzI2fQ.M6UZh9MJf757GEsYRndz-yKoZIIVFKRT8PdPJT-3jyQ',
+            'Bearer '+  data.token,
         },
       })
       .then(response => {
@@ -31,6 +34,10 @@ export default class home extends Component {
       .catch(function(error) {
         console.log(error);
       });
+    });
+    console.log(this.state.token);
+    
+    
   }
   render() {
     return (

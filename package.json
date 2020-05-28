@@ -22,6 +22,7 @@
     "react-native-comments": "^1.1.7",
     "react-native-elements": "^2.0.0",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-local-storage": "^1.5.2",
     "react-native-reanimated": "^1.8.0",
     "react-native-router-flux": "^4.2.0",
     "react-native-safe-area-context": "^0.7.3",

@@ -8,6 +8,8 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import {inject} from 'mobx-react';
 
+var ls = require('react-native-local-storage');
+
 const validations = Yup.object().shape({
   username: Yup.string().required('Alan boş bırakılamaz.'),
   password: Yup.string().required('Alan boş bırakılamaz.'),
@@ -25,9 +27,10 @@ class signIn extends Component {
         alert('Kullanıcı Bulunamadı');
         return false;
       }
-      Actions.push('home');
-      console.log('Giriş Başarılı');
-      this.props.AuthStore.saveToken(data.token);
+      
+      ls.save('user', data).then(() => {
+        Actions.push('home');
+    })
     } catch (e) {
       bag.setSubmitting(false);
       bag.setErrors(e);
